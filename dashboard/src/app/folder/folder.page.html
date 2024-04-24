@@ -1,0 +1,111 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="primary" *ngIf="timePeriod === 'custom'">
+      <ion-datetime-button datetime="customDatetime1" ></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="customDatetime1" presentation="date" [showDefaultButtons]="true" doneText="Confirm" cancelText="" (ionChange)="onCustomDate1Change($event)" value={{getIso8601CustomDate()[0]}} min={{minDate}} max={{maxDate}}>
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+      -
+      <ion-datetime-button datetime="customDatetime2" ></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="customDatetime2" presentation="date" [showDefaultButtons]="true" doneText="Confirm" cancelText="" (ionChange)="onCustomDate2Change($event)" value={{getIso8601CustomDate()[1]}} min={{getIso8601CustomDate()[0]}} max={{maxDate}}>
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-buttons>
+    <ion-buttons slot="primary" *ngIf="timePeriod === 'all'">
+      <ion-datetime-button datetime="allDatetime1" ></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="allDatetime1" presentation="date" value={{getIso8601AllDate()[0]}} min="{{getIso8601AllDate()[0]}}" max="{{getIso8601AllDate()[0]}}">
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+      -
+      <ion-datetime-button datetime="allDatetime2" ></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="allDatetime2" presentation="date" value={{getIso8601AllDate()[1]}} min="{{getIso8601AllDate()[1]}}" max="{{getIso8601AllDate()[1]}}">
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-buttons>
+    <ion-buttons slot="primary" *ngIf="timePeriod === 'year'">
+      <ion-datetime-button datetime="yearDatetime" ></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="yearDatetime" presentation="year" (ionChange)="onYearChange($event)" [showDefaultButtons]="true" doneText="Confirm" cancelText="" value={{getIso8601Year()}} min={{minDate}} max={{maxDate}}>
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-buttons>
+    <ion-buttons slot="primary" *ngIf="timePeriod === 'quarter'">
+      <ion-radio-group value={{getQuarterNum()}} (ionChange)="onQuarterNumChange($event)">
+        <ion-radio value="q1">q1</ion-radio><br />
+        <ion-radio value="q2">q2</ion-radio><br />
+        <ion-radio value="q3">q3</ion-radio><br />
+        <ion-radio value="q4">q4</ion-radio>
+      </ion-radio-group>
+      <ion-datetime-button datetime="quarterDatetime" ></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="quarterDatetime" presentation="year" (ionChange)="onQuarterYearChange($event)" [showDefaultButtons]="true" doneText="Confirm" cancelText="" value={{getIso8601QuarterYear()}} min={{minDate}} max={{maxDate}}>
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-buttons>
+    <ion-buttons slot="primary" *ngIf="timePeriod === 'month'">
+      <ion-datetime-button datetime="monthDatetime" ></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="monthDatetime" presentation="month-year" (ionChange)="onMonthChange($event)" [showDefaultButtons]="true" doneText="Confirm" cancelText="" value={{getIso8601Month()}} min={{minDate}} max={{maxDate}}>
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-buttons>
+    <ion-buttons slot="primary" *ngIf="timePeriod === 'week'">
+      <ion-datetime-button datetime="week1Datetime" ></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="week1Datetime" presentation="date" (ionChange)="onWeek1Change($event)" [showDefaultButtons]="true" doneText="Confirm" cancelText="" value={{getIso8601Week()[0]}} min={{minDate}} max={{getIso8601Week1Max()}}>
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+      -
+      <ion-datetime-button datetime="week2Datetime" ></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="week2Datetime" presentation="date" (ionChange)="onWeek2Change($event)" [showDefaultButtons]="true" doneText="Confirm" cancelText="" value={{getIso8601Week()[1]}} min={{getIso8601Week()[0]}} max={{maxDate}}>
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-buttons>
+    <ion-buttons slot="primary" *ngIf="timePeriod === 'day'">
+      <ion-datetime-button datetime="dayDatetime" ></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="dayDatetime" presentation="date" (ionChange)="onDayChange($event)" [showDefaultButtons]="true" doneText="Confirm" cancelText="" value={{getIso8601Day()}} min={{minDate}} max={{maxDate}}>
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <app-day-life-time-picker (sendTP)="onTimePeriodChange($event)"></app-day-life-time-picker>
+    </ion-buttons>
+    <ion-title>{{folder}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="folder === 'factory'">
+    <app-pie-chart-graphic [activeTimePeriod]="timePeriod" [timePeriod1]="periodDate1" [timePeriod2]="periodDate2" [mode]="'status'"></app-pie-chart-graphic>
+    <app-pie-chart-graphic [activeTimePeriod]="timePeriod" [timePeriod1]="periodDate1" [timePeriod2]="periodDate2" [mode]="'shutdown'"></app-pie-chart-graphic>
+  </div>
+  <div *ngIf="folder === 'workstations'">
+    <app-bar-chart-graphic [activeTimePeriod]="timePeriod" [timePeriod1]="periodDate1" [timePeriod2]="periodDate2" [mode]="'status'"></app-bar-chart-graphic>
+  </div>
+</ion-content>

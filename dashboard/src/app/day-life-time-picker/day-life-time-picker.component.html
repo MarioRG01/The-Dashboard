@@ -1,0 +1,13 @@
+<ion-list>
+  <ion-item>
+    <ion-select aria-label="time-period" interface="popover" value="day" (ionChange)="onTimePeriodChange($event)">
+      <ion-select-option value="day" class="time-select-option">day</ion-select-option>
+      <ion-select-option value="week" class="time-select-option">week</ion-select-option>
+      <ion-select-option value="month" class="time-select-option">month</ion-select-option>
+      <ion-select-option value="quarter" class="time-select-option">quarter</ion-select-option>
+      <ion-select-option value="year" class="time-select-option">year</ion-select-option>
+      <ion-select-option value="all" class="time-select-option">all</ion-select-option>
+      <ion-select-option value="custom" class="time-select-option">custom</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-list>

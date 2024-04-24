@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">dashboard</string>
+    <string name="title_activity_main">dashboard</string>
+    <string name="package_name">ionic.dashboard</string>
+    <string name="custom_url_scheme">ionic.dashboard</string>
+</resources>
